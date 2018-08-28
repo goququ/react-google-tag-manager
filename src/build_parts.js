@@ -2,7 +2,13 @@ function convertToKeyValueString(obj) {
     return JSON.stringify(obj).slice(1, -1);
 }
 
-function buildParts({ id, dataLayerName = 'dataLayer', additionalEvents = {}, scheme = '', previewVariables }) {
+function buildParts({
+    id,
+    dataLayerName = 'dataLayer',
+    additionalEvents = {},
+    scheme = '',
+    previewVariables
+}) {
     if (id === undefined) {
         throw new Error('No GTM id provided');
     }
@@ -13,9 +19,11 @@ function buildParts({ id, dataLayerName = 'dataLayer', additionalEvents = {}, sc
 
     const script = `
         (function(w,d,s,l,i){w[l]=w[l]||[];
-            w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js', ${convertToKeyValueString(additionalEvents)}});
+            w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js', ${convertToKeyValueString(
+                additionalEvents
+            )}});
             var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-            j.async=true;j.src='${scheme}//www.googletagmanager.com/gtm.js?id='+i+dl
+            j.async=true;j.src='${scheme}//www.googletagmanager.com/gtag/js?id='+i+dl
             ${previewVariables ? `+"${previewVariables}"` : ''};
             f.parentNode.insertBefore(j,f);
         })(window,document,'script','${dataLayerName}','${id}');`;

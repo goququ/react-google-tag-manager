@@ -1,11 +1,12 @@
-import buildParts from './build_parts';
 import React from 'react';
+import buildParts from './build_parts';
 
 function GTMParts(args) {
     const parts = buildParts(args);
 
     function noScriptAsReact() {
-        return <noscript dangerouslySetInnerHTML={{ __html: parts.iframe }}></noscript>;
+        // eslint-disable-next-line
+        return <noscript dangerouslySetInnerHTML={{ __html: parts.iframe }} />;
     }
 
     function noScriptAsHTML() {
@@ -13,7 +14,8 @@ function GTMParts(args) {
     }
 
     function scriptAsReact() {
-        return <script dangerouslySetInnerHTML={{ __html: parts.script }}></script>;
+        // eslint-disable-next-line
+        return <script dangerouslySetInnerHTML={{ __html: parts.script }} />;
     }
 
     function scriptAsHTML() {
